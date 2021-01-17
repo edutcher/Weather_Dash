@@ -8,6 +8,10 @@ body {
     justify-content: space-between;
 }
 
+#cityInput {
+    margin-left: 10px;
+}
+
 #tagRow {
     display: flex;
     justify-content: center;
@@ -15,17 +19,17 @@ body {
 }
 
 #cityHero {
-    background-image: url("https://d13k13wj6adfdf.cloudfront.net/urban_areas/aarhus_web-1462c370b8.jpg");
+    background-image: url("https://d13k13wj6adfdf.cloudfront.net/urban_areas/albuquerque_web-3079b54e59.jpg");
     width: 100%;
     padding: 50px;
-    height: 87vh;
     background-repeat: no-repeat;
     background-size: cover;
 }
 
 #cityTitle {
+    color: lightsteelblue;
     text-align: center;
-    text-shadow: 3px 3px lightblue;
+    text-shadow: 3px 3px black;
     margin-bottom: 25px;
     padding-bottom: 25px;
 }
@@ -49,4 +53,8 @@ body {
 
 .temp {
     font-size: 2.5rem;
+}
+
+.icofont-fahrenheit {
+    font-size: 2rem;
 }
