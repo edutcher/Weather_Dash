@@ -68,6 +68,10 @@ body {
     justify-content: space-between;
 }
 
+.mainWeather {
+    margin-left: 15px;
+}
+
 .temp {
     font-size: 2.5rem;
 }

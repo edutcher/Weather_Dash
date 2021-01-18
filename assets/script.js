@@ -33,9 +33,68 @@ function displayWeather(data) {
         var day = newDate.toDateString().slice(0, 3);
         $(el).text(`${day} ${newDate.getDate()}`);
     });
-    $('.content').each(function(ind, el) {
-        $(el).text(`${data.data.daily[ind].weather[0].main}`);
+
+    $('.mainWeather').each(function(ind, el) {
+        switch (data.data.daily[ind].weather[0].main.trim()) {
+            case "Clouds":
+                $(this).text('Cloudy');
+                break;
+            case "Rain":
+                $(this).text('Rainy');
+                break;
+            case "Clear":
+                $(this).text('Clear');
+                break;
+            case "Snow":
+                $(this).text('Snow');
+                break;
+            case "Drizzle":
+                $(this).text('Light Rain');
+                break;
+            case "Thunderstorm":
+                $(this).text('Thunderstorms');
+                break;
+            default:
+                $(this).text('Cloudy');
+                break;
+        }
     })
+
+
+    $('.weatherIcon').each(function(ind, el) {
+        switch (data.data.daily[ind].weather[0].main.trim()) {
+            case "Clouds":
+                $(this).attr('class', 'weatherIcon icofont-cloudy');
+                break;
+            case "Rain":
+                $(this).attr('class', 'weatherIcon icofont-rainy');
+                break;
+            case "Clear":
+                $(this).attr('class', 'weatherIcon icofont-sun');
+                break;
+            case "Snow":
+                n$(this).attr('class', 'weatherIcon icofont-snow');
+                break;
+            case "Drizzle":
+                $(this).attr('class', 'weatherIcon icofont-rainy-sunny');
+                break;
+            case "Thunderstorm":
+                $(this).attr('class', 'weatherIcon icofont-rainy-thunder');
+                break;
+            default:
+                $(this).attr('class', 'weatherIcon icofont-clouds');
+                break;
+        }
+    })
+
+    $('.content').each(function(ind, el) {
+        $(el).text(` Humidity: ${data.data.daily[ind].humidity}        U.V.Index: ${data.data.daily[ind].uvi}      Wind Speed: ${data.data.daily[ind].wind_speed}`);
+    });
+
+    setTimeout(() => {
+        $('.segment').dimmer('hide');
+    }, 250);
+
 }
 
 function addLabel() {
@@ -71,6 +130,7 @@ function addLabel() {
 }
 
 function getWeather(city) {
+    $('.segment').dimmer('show');
 
     q = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&appid=de7bd5e10ba48f1457012747849901b6`
 
