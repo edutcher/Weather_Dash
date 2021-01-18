@@ -1,6 +1,6 @@
 var q = "https://json.geoiplookup.io/";
 var userCity = '';
-var userState = '';
+var tags = [];
 var fiveDay;
 var sevenDay;
 var timer = luxon.DateTime.local();
@@ -96,7 +96,6 @@ function displayWeather(data) {
     $('.uvi').each(function(ind, el) {
         $(el).text(` ${data.data.daily[ind].uvi}`);
         var uv = parseInt(data.data.daily[ind].uvi);
-        console.log(uv);
         switch (uv) {
             case 11:
                 $(this).parent().attr('class', 'ui label image violet');
@@ -114,6 +113,7 @@ function displayWeather(data) {
             case 5:
                 $(this).parent().attr('class', 'ui label image yellow');
                 break;
+            case 0:
             case 1:
             case 2:
                 $(this).parent().attr('class', 'ui label image green');
@@ -132,6 +132,16 @@ function displayWeather(data) {
 
 }
 
+function getTags() {
+    if (localStorage.getItem('tags') === null) return;
+
+    tags = JSON.parse(localStorage.getItem('tags'));
+
+    tags.forEach(element => {
+        addTag(element)
+    });
+}
+
 function addTag(city) {
 
     var haveTag = false;
@@ -144,6 +154,8 @@ function addTag(city) {
 
     if (haveTag) return;
 
+    tags.push(city);
+
     var newAnch = $('<a>');
     var newDiv = $('<div>');
     var newIcon = $('<i>');
@@ -154,7 +166,17 @@ function addTag(city) {
     newAnch.append(newDiv);
     $('#tagRow').append(newAnch);
 
-    $('.delete').click(function() {
+    $('.delete').click(function(e) {
+        e.stopPropagation();
+        var j = tags.length;
+        for (var i = 0; i < j; i++) {
+            console.log($(this).parent().text());
+            console.log(tags[i]);
+            if ($(this).parent().text() == tags[i]) {
+                tags.splice(i, 1);
+            }
+        }
+        localStorage.setItem('tags', JSON.stringify(tags));
         $($(this).parent().parent()).remove()
     })
 
@@ -162,6 +184,8 @@ function addTag(city) {
         $('#cityInput').val($(this).text().trim());
         getWeather($('#cityInput').val());
     })
+
+    localStorage.setItem('tags', JSON.stringify(tags));
 }
 
 function getWeather(city) {
@@ -240,7 +264,17 @@ $(document).ready(() => {
 
     $('.ui.accordion').accordion();
 
-    $('.delete').click(function() {
+    $('.delete').click(function(e) {
+        e.stopPropagation();
+        var j = tags.length;
+        for (var i = 0; i < j; i++) {
+            console.log($(this).parent().text());
+            console.log(tags[i]);
+            if ($(this).parent().text() == tags[i]) {
+                tags.splice(i, 1);
+            }
+        }
+        localStorage.setItem('tags', JSON.stringify(tags));
         $($(this).parent().parent()).remove()
     })
 
@@ -263,4 +297,5 @@ $(document).ready(() => {
     })
 
     setTimer();
+    getTags();
 });
