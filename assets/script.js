@@ -18,16 +18,24 @@ function setTimer() {
 }
 
 function displayWeather(data) {
-    $('h1').text(`${fiveDay.data.city.name}  ${data.data.current.temp}`)
+    changeHero(fiveDay.data.city.name);
+    $('h1').text(`${fiveDay.data.city.name}  ${parseInt(data.data.current.temp)}`)
     var newSup = $('<sup>');
     var newIcon = $('<i>')
     newIcon.addClass('icofont-fahrenheit')
     newSup.append(newIcon);
     $('h1').append(newIcon);
     $('.temp').each(function(ind, el) {
-        $(el).text(data.data.daily[ind].temp.day);
+        $(el).text(`${parseInt(data.data.daily[ind].temp.max)}/${parseInt(data.data.daily[ind].temp.min)}`);
     })
-    changeHero(fiveDay.data.city.name);
+    $('.day').each(function(ind, el) {
+        var newDate = new Date(data.data.daily[ind].dt * 1000);
+        var day = newDate.toDateString().slice(0, 3);
+        $(el).text(`${day} ${newDate.getDate()}`);
+    });
+    $('.content').each(function(ind, el) {
+        $(el).text(`${data.data.daily[ind].weather[0].main}`);
+    })
 }
 
 function addLabel() {
@@ -123,16 +131,16 @@ function changeHero(city) {
 }
 
 
-// axios.get(q)
-//     .then(res => {
-//         $('h1').text(`${res.data.city}, ${res.data.region}`)
-//         userCity = res.data.city;
-//         userState = res.data.region
-//         changeHero(userCity);
-//     })
-//     .catch(e => {
-//         console.log(e);
-//     })
+axios.get(q)
+    .then(res => {
+        $('h1').text(`${res.data.city}, ${res.data.region}`)
+        userCity = res.data.city;
+        userState = res.data.region
+        getWeather(userCity);
+    })
+    .catch(e => {
+        console.log(e);
+    })
 
 $('.ui.accordion').accordion();
 
