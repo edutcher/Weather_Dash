@@ -19,8 +19,46 @@ function setTimer() {
 
 function displayWeather(data) {
     $('h1').text(`${fiveDay.data.city.name}  ${data.data.current.temp}`)
+    var newSup = $('<sup>');
+    var newIcon = $('<i>')
+    newIcon.addClass('icofont-fahrenheit')
+    newSup.append(newIcon);
+    $('h1').append(newIcon);
     $('.temp').each(function(ind, el) {
         $(el).text(data.data.daily[ind].temp.day);
+    })
+    changeHero(fiveDay.data.city.name);
+}
+
+function addLabel() {
+
+    var haveLabel = false;
+
+    $('.label').each(function(ind, el) {
+        if ($(this).text().trim() == fiveDay.data.city.name.trim()) {
+            haveLabel = true;
+        };
+    })
+
+    if (haveLabel) return;
+
+    var newAnch = $('<a>');
+    var newDiv = $('<div>');
+    var newIcon = $('<i>');
+    newIcon.addClass('delete icon');
+    newDiv.addClass('ui image label');
+    newDiv.text(fiveDay.data.city.name);
+    newDiv.append(newIcon);
+    newAnch.append(newDiv);
+    $('#tagRow').append(newAnch);
+
+    $('.delete').click(function() {
+        $($(this).parent().parent()).remove()
+    })
+
+    $('.label').click(function() {
+        $('#cityInput').val($(this).text().trim());
+        getWeather($('#cityInput').val());
     })
 }
 
@@ -42,6 +80,7 @@ function getWeather(city) {
                     sevenDay = res;
                     haveData = true;
                     displayWeather(res);
+                    addLabel();
                 })
                 .catch(e => {
                     console.log(e);
@@ -56,7 +95,9 @@ function changeHero(city) {
 
     var newstr = "";
     for (var i = 0; i < city.length; i++) {
-        if (city[i] === " ") {
+        if (city[i] === ",") {
+            break
+        } else if (city[i] === " ") {
             newstr += "-";
         } else {
             newstr += city[i].toLowerCase();
@@ -100,14 +141,14 @@ $('.delete').click(function() {
 })
 
 $('.label').click(function() {
-    $('#cityInput').val($(this).text().trim())
+    $('#cityInput').val($(this).text().trim());
+    getWeather($('#cityInput').val());
 })
 
 $('#searchBtn').click(function() {
     if ($('#cityInput').val() != '' || $('#cityInput').val() != null) {
         getWeather($('#cityInput').val());
     }
-    changeHero($('#cityInput').val())
 })
 
 setTimer();

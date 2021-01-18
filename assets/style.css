@@ -28,6 +28,11 @@ body {
     align-items: center;
 }
 
+#tagRow a {
+    cursor: pointer;
+    margin-left: 10px;
+}
+
 #cityHero {
     background-image: url("https://d13k13wj6adfdf.cloudfront.net/urban_areas/albuquerque_web-3079b54e59.jpg");
     width: 100%;
