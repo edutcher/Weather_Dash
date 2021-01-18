@@ -73,7 +73,7 @@ function displayWeather(data) {
                 $(this).attr('class', 'weatherIcon icofont-sun');
                 break;
             case "Snow":
-                n$(this).attr('class', 'weatherIcon icofont-snow');
+                $(this).attr('class', 'weatherIcon icofont-snow');
                 break;
             case "Drizzle":
                 $(this).attr('class', 'weatherIcon icofont-rainy-sunny');
@@ -190,33 +190,42 @@ function changeHero(city) {
         });
 }
 
+$(document).ready(() => {
 
-axios.get(q)
-    .then(res => {
-        $('h1').text(`${res.data.city}, ${res.data.region}`)
-        userCity = res.data.city;
-        userState = res.data.region
-        getWeather(userCity);
+    axios.get(q)
+        .then(res => {
+            $('h1').text(`${res.data.city}, ${res.data.region}`)
+            userCity = res.data.city;
+            userState = res.data.region
+            getWeather(userCity);
+        })
+        .catch(e => {
+            console.log(e);
+        })
+
+    $('.ui.accordion').accordion();
+
+    $('.delete').click(function() {
+        $($(this).parent().parent()).remove()
     })
-    .catch(e => {
-        console.log(e);
-    })
 
-$('.ui.accordion').accordion();
-
-$('.delete').click(function() {
-    $($(this).parent().parent()).remove()
-})
-
-$('.label').click(function() {
-    $('#cityInput').val($(this).text().trim());
-    getWeather($('#cityInput').val());
-})
-
-$('#searchBtn').click(function() {
-    if ($('#cityInput').val() != '' || $('#cityInput').val() != null) {
+    $('.label').click(function() {
+        $('#cityInput').val($(this).text().trim());
         getWeather($('#cityInput').val());
-    }
-})
+    })
 
-setTimer();
+    $('#searchBtn').click(function() {
+        if ($('#cityInput').val() != '' || $('#cityInput').val() != null) {
+            getWeather($('#cityInput').val());
+        }
+    })
+
+    $('form').submit((e) => {
+        e.preventDefault();
+        if ($('#cityInput').val() != '' || $('#cityInput').val() != null) {
+            getWeather($('#cityInput').val());
+        }
+    })
+
+    setTimer();
+});
