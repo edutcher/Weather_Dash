@@ -9,6 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js" integrity="sha512-dqw6X88iGgZlTsONxZK9ePmJEFrmHwpuMrsUChjAw1mRUhUITE5QU9pkcSox+ynfLhL15Sv2al5A0LVyDCmtUw==" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ==" crossorigin="anonymous" />
     <link rel="stylesheet" href="./assets/icofont.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/luxon@1.25.0/build/global/luxon.min.js"></script>
     <link rel="stylesheet" href="./assets/style.css">
     <title>Weather Dashboard</title>
 </head>
@@ -17,7 +18,7 @@
     <main>
         <div class="ui menu">
             <div id="searchBar">
-                <span><i class="cloud icon"></i>Weather Dashboard</span>
+                <span id="topLogo"><i class="cloud icon"></i>Weather Dashboard</span>
                 <div class="ui category search item">
                     <div class="ui transparent icon input"> <label for="search">Enter City:</label>
                         <input id="cityInput" class="prompt" type="text" name="search" placeholder="City">
@@ -25,7 +26,7 @@
                     </div>
                     <div class="results"></div>
                 </div>
-                <a> <span id="settBtn"> <i class="icon settings"></i>Settings</span></a>
+                <a id="settBtn"> <span> <i class="icon settings"></i>Settings</span></a>
             </div>
         </div>
         <div id="tagRow" class="ui segment">

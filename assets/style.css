@@ -8,6 +8,16 @@ body {
     justify-content: space-between;
 }
 
+#topLogo {
+    margin: 10px;
+    font-size: 2rem;
+}
+
+#settBtn {
+    margin: 10px;
+    font-size: 2rem;
+}
+
 #cityInput {
     margin-left: 10px;
 }
@@ -29,11 +39,11 @@ body {
 }
 
 #cityTitle {
-    color: lightsteelblue;
+    color: black;
     text-align: center;
-    text-shadow: 3px 3px black;
-    margin-bottom: 25px;
-    padding-bottom: 25px;
+    text-shadow: 3px 3px lightsteelblue;
+    margin-bottom: 50px;
+    padding-bottom: 50px;
 }
 
 #cityTitle h1 {

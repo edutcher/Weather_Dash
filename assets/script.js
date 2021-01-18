@@ -1,6 +1,28 @@
 var q = "https://json.geoiplookup.io/";
 var userCity = '';
 var userState = '';
+var fiveDay;
+var sevenDay;
+var timer = luxon.DateTime.local();
+var haveData = false;
+
+function setTimer() {
+    var int = setInterval(() => {
+        if (haveData) {
+            timer = luxon.DateTime.local().setZone(sevenDay.data.timezone)
+        } else {
+            timer = luxon.DateTime.local();
+        }
+        $('h3').text(timer.toLocaleString(luxon.DateTime.DATETIME_FULL))
+    }, 1000)
+}
+
+function displayWeather(data) {
+    $('h1').text(`${fiveDay.data.city.name}  ${data.data.current.temp}`)
+    $('.temp').each(function(ind, el) {
+        $(el).text(data.data.daily[ind].temp.day);
+    })
+}
 
 function getWeather(city) {
 
@@ -8,15 +30,18 @@ function getWeather(city) {
 
     axios.get(q)
         .then(res => {
-            console.log(res);
             var lat = res.data.city.coord.lat;
             var lon = res.data.city.coord.lon;
+
+            fiveDay = res;
 
             q = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&units=imperial&appid=de7bd5e10ba48f1457012747849901b6`
 
             axios.get(q)
                 .then(res => {
-                    console.log(res);
+                    sevenDay = res;
+                    haveData = true;
+                    displayWeather(res);
                 })
                 .catch(e => {
                     console.log(e);
@@ -84,3 +109,5 @@ $('#searchBtn').click(function() {
     }
     changeHero($('#cityInput').val())
 })
+
+setTimer();
