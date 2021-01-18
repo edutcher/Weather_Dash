@@ -170,8 +170,6 @@ function addTag(city) {
         e.stopPropagation();
         var j = tags.length;
         for (var i = 0; i < j; i++) {
-            console.log($(this).parent().text());
-            console.log(tags[i]);
             if ($(this).parent().text() == tags[i]) {
                 tags.splice(i, 1);
             }
@@ -230,6 +228,11 @@ function changeHero(city) {
             newstr += city[i].toLowerCase();
         }
     }
+    if (newstr == "washington-d.c.") newstr = "washington-dc";
+    if (newstr == "san-francisco") newstr = "san-francisco-bay-area";
+    if ((newstr == "tampa") || (newstr == "tampa-bay")) newstr = "tampa-bay-area";
+    if (newstr == "portland") newstr = "portland-or";
+    if (newstr == "minneapolis") newstr = "minneapolis-saint-paul"
     q = `https://api.teleport.org/api/urban_areas/slug:${newstr}/images/`;
     axios.get(q)
         .then(res => {
@@ -253,9 +256,7 @@ $(document).ready(() => {
 
     axios.get(q)
         .then(res => {
-            $('h1').text(`${res.data.city}, ${res.data.region}`)
             userCity = res.data.city;
-            userState = res.data.region
             getWeather(userCity);
         })
         .catch(e => {
@@ -268,8 +269,6 @@ $(document).ready(() => {
         e.stopPropagation();
         var j = tags.length;
         for (var i = 0; i < j; i++) {
-            console.log($(this).parent().text());
-            console.log(tags[i]);
             if ($(this).parent().text() == tags[i]) {
                 tags.splice(i, 1);
             }
