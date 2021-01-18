@@ -88,8 +88,42 @@ function displayWeather(data) {
         }
     });
 
-    $('.content').each(function(ind, el) {
-        $(el).text(`Humidity: ${data.data.daily[ind].humidity} %   U.V.Index: ${data.data.daily[ind].uvi} Wind Speed: ${data.data.daily[ind].wind_speed}MPH`);
+    $('.humid').each(function(ind, el) {
+        $(el).text(` ${data.data.daily[ind].humidity} %`);
+    });
+
+
+    $('.uvi').each(function(ind, el) {
+        $(el).text(` ${data.data.daily[ind].uvi}`);
+        var uv = parseInt(data.data.daily[ind].uvi);
+        console.log(uv);
+        switch (uv) {
+            case 11:
+                $(this).parent().attr('class', 'ui label image violet');
+            case 8:
+            case 9:
+            case 10:
+                $(this).parent().attr('class', 'ui label image red');
+                break;
+            case 6:
+            case 7:
+                $(this).parent().attr('class', 'ui label image orange');
+                break;
+            case 3:
+            case 4:
+            case 5:
+                $(this).parent().attr('class', 'ui label image yellow');
+                break;
+            case 1:
+            case 2:
+                $(this).parent().attr('class', 'ui label image green');
+                break;
+        }
+    });
+
+
+    $('.wind').each(function(ind, el) {
+        $(el).text(` ${data.data.daily[ind].wind_speed} MPH`);
     });
 
     setTimeout(() => {
