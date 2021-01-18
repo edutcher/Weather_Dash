@@ -25,9 +25,11 @@ function displayWeather(data) {
     newIcon.addClass('icofont-fahrenheit')
     newSup.append(newIcon);
     $('h1').append(newIcon);
+
     $('.temp').each(function(ind, el) {
         $(el).text(`${parseInt(data.data.daily[ind].temp.max)}/${parseInt(data.data.daily[ind].temp.min)}`);
-    })
+    });
+
     $('.day').each(function(ind, el) {
         var newDate = new Date(data.data.daily[ind].dt * 1000);
         var day = newDate.toDateString().slice(0, 3);
@@ -58,8 +60,7 @@ function displayWeather(data) {
                 $(this).text('Cloudy');
                 break;
         }
-    })
-
+    });
 
     $('.weatherIcon').each(function(ind, el) {
         switch (data.data.daily[ind].weather[0].main.trim()) {
@@ -85,10 +86,10 @@ function displayWeather(data) {
                 $(this).attr('class', 'weatherIcon icofont-clouds');
                 break;
         }
-    })
+    });
 
     $('.content').each(function(ind, el) {
-        $(el).text(` Humidity: ${data.data.daily[ind].humidity}        U.V.Index: ${data.data.daily[ind].uvi}      Wind Speed: ${data.data.daily[ind].wind_speed}`);
+        $(el).text(`Humidity: ${data.data.daily[ind].humidity} %   U.V.Index: ${data.data.daily[ind].uvi} Wind Speed: ${data.data.daily[ind].wind_speed}MPH`);
     });
 
     setTimeout(() => {
@@ -97,24 +98,24 @@ function displayWeather(data) {
 
 }
 
-function addLabel() {
+function addTag(city) {
 
-    var haveLabel = false;
+    var haveTag = false;
 
-    $('.label').each(function(ind, el) {
-        if ($(this).text().trim() == fiveDay.data.city.name.trim()) {
-            haveLabel = true;
+    $('.tag').each(function(ind, el) {
+        if ($(this).text().trim() == city.trim()) {
+            haveTag = true;
         };
     })
 
-    if (haveLabel) return;
+    if (haveTag) return;
 
     var newAnch = $('<a>');
     var newDiv = $('<div>');
     var newIcon = $('<i>');
     newIcon.addClass('delete icon');
-    newDiv.addClass('ui image label');
-    newDiv.text(fiveDay.data.city.name);
+    newDiv.addClass('ui tag image label');
+    newDiv.text(city.trim());
     newDiv.append(newIcon);
     newAnch.append(newDiv);
     $('#tagRow').append(newAnch);
@@ -123,7 +124,7 @@ function addLabel() {
         $($(this).parent().parent()).remove()
     })
 
-    $('.label').click(function() {
+    $('.tag').click(function() {
         $('#cityInput').val($(this).text().trim());
         getWeather($('#cityInput').val());
     })
@@ -148,7 +149,7 @@ function getWeather(city) {
                     sevenDay = res;
                     haveData = true;
                     displayWeather(res);
-                    addLabel();
+                    addTag(fiveDay.data.city.name);
                 })
                 .catch(e => {
                     console.log(e);
@@ -209,7 +210,7 @@ $(document).ready(() => {
         $($(this).parent().parent()).remove()
     })
 
-    $('.label').click(function() {
+    $('.tag').click(function() {
         $('#cityInput').val($(this).text().trim());
         getWeather($('#cityInput').val());
     })
