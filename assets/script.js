@@ -1,7 +1,7 @@
 var q = "https://json.geoiplookup.io/";
 var userCity = '';
 var tags = [];
-var fiveDay;
+var loc;
 var sevenDay;
 var timer = luxon.DateTime.local();
 var haveData = false;
@@ -19,8 +19,8 @@ function setTimer() {
 }
 
 function displayWeather(data) {
-    changeHero(fiveDay.data.city.name);
-    $('#cityName').text(`${fiveDay.data.city.name}`)
+    changeHero(loc.data.data[0].name);
+    $('#cityName').text(`${loc.data.data[0].name}`)
     $('#cityTemp').text(`${parseInt(data.data.current.temp)}`);
     if (unit == "imperial") {
         $('#cityUnit').attr('class', 'icofont-fahrenheit');
@@ -195,14 +195,15 @@ function addTag(city) {
 function getWeather(city) {
     $('.segment').dimmer('show');
 
-    q = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=${unit}&appid=de7bd5e10ba48f1457012747849901b6`
+    q = `http://api.positionstack.com/v1/forward?access_key=8de1f8f20b5f359e8d3495d7877af09b&query=${city}`
 
     axios.get(q)
         .then(res => {
-            var lat = res.data.city.coord.lat;
-            var lon = res.data.city.coord.lon;
+            console.log(res);
+            var lat = res.data.data[0].latitude;
+            var lon = res.data.data[0].longitude;
 
-            fiveDay = res;
+            loc = res;
 
             q = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&units=${unit}&appid=de7bd5e10ba48f1457012747849901b6`
 
@@ -211,7 +212,7 @@ function getWeather(city) {
                     sevenDay = res;
                     haveData = true;
                     displayWeather(res);
-                    addTag(fiveDay.data.city.name);
+                    addTag(loc.data.data[0].name);
                 })
                 .catch(e => {
                     console.log(e);
