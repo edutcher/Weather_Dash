@@ -55,6 +55,10 @@ body {
     font-size: 5rem;
 }
 
+#cityTemp {
+    margin-left: 25px;
+}
+
 #cityTitle h3 {
     font-size: 2.5rem;
 }
@@ -72,10 +76,26 @@ body {
     margin-left: 15px;
 }
 
-.temp {
+.tempHigh {
+    font-size: 2.5rem;
+}
+
+.tempLow {
+    font-size: 2.5rem;
+}
+
+.slash {
     font-size: 2.5rem;
 }
 
 .icofont-fahrenheit {
     font-size: 2rem;
+}
+
+.icofont-celsius {
+    font-size: 2rem;
+}
+
+h2 {
+    text-align: center;
 }

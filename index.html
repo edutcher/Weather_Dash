@@ -48,7 +48,7 @@
         </div>
         <div id="cityHero" class="ui segment">
             <section id="cityTitle">
-                <h1>CITY TEMP<sup><i class="icofont-fahrenheit"></i></sup></h1>
+                <h1> <span id="cityName">CITY</span><span id="cityTemp">TEMP</span><sup><i id="cityUnit" class="icofont-fahrenheit"></i></sup></h1>
                 <h3>LOCAL TIME</h3>
             </section>
 
@@ -56,8 +56,10 @@
 
                 <div class="ui styled fluid accordion">
                     <div class="active title dropTitle">
-                        <div class="dropDay"><i class="dropdown icon"></i> <span class="day"> Day 1</span><span class="mainWeather"></span><i class="weatherIcon"></i> </div>
-                        <div><span class="temp">75</span><sup><i class="icofont-fahrenheit"></i> </sup></div>
+                        <div class="dropDay"><i class="dropdown icon"></i><span class="day"> Day 1</span>
+                            <span class="mainWeather"></span><i class="weatherIcon"></i> </div>
+                        <div><span class="tempHigh">75</span><span class="slash">/</span>
+                            <span class="tempLow">75</span><sup><i class="icofont-fahrenheit"></i></sup></div>
                     </div>
                     <div class="active content">
                         <div class="ui label image">Humidity:
@@ -71,8 +73,10 @@
                         </div>
                     </div>
                     <div class="title dropTitle">
-                        <div class="dropDay"><i class="dropdown icon"></i> <span class="day"> Day 2</span><span class="mainWeather"></span> <i class="weatherIcon"></i></div>
-                        <div><span class="temp">75</span><sup><i class="icofont-fahrenheit"></i> </sup></div>
+                        <div class="dropDay"><i class="dropdown icon"></i><span class="day"> Day 2</span>
+                            <span class="mainWeather"></span> <i class="weatherIcon"></i></div>
+                        <div><span class="tempHigh">75</span><span class="slash">/</span>
+                            <span class="tempLow">75</span><sup><i class="icofont-fahrenheit"></i> </sup></div>
                     </div>
                     <div class="content">
                         <div class="ui label image">Humidity:
@@ -86,8 +90,10 @@
                         </div>
                     </div>
                     <div class="title dropTitle">
-                        <div class="dropDay"><i class="dropdown icon"></i> <span class="day"> Day 3</span><span class="mainWeather"></span> <i class="weatherIcon"></i></div>
-                        <div><span class="temp">75</span><sup><i class="icofont-fahrenheit"></i> </sup></div>
+                        <div class="dropDay"><i class="dropdown icon"></i><span class="day"> Day 3</span>
+                            <span class="mainWeather"></span> <i class="weatherIcon"></i></div>
+                        <div><span class="tempHigh">75</span><span class="slash">/</span>
+                            <span class="tempLow">75</span><sup><i class="icofont-fahrenheit"></i> </sup></div>
                     </div>
                     <div class="content">
                         <div class="ui label image">Humidity:
@@ -101,8 +107,10 @@
                         </div>
                     </div>
                     <div class="title dropTitle">
-                        <div class="dropDay"><i class="dropdown icon"></i> <span class="day"> Day 4</span><span class="mainWeather"></span> <i class="weatherIcon"></i></div>
-                        <div><span class="temp">75</span><sup><i class="icofont-fahrenheit"></i> </sup></div>
+                        <div class="dropDay"><i class="dropdown icon"></i><span class="day"> Day 4</span>
+                            <span class="mainWeather"></span> <i class="weatherIcon"></i></div>
+                        <div><span class="tempHigh">75</span><span class="slash">/</span>
+                            <span class="tempLow">75</span><sup><i class="icofont-fahrenheit"></i> </sup></div>
                     </div>
                     <div class="content">
                         <div class="ui label image">Humidity:
@@ -116,8 +124,10 @@
                         </div>
                     </div>
                     <div class="title dropTitle">
-                        <div class="dropDay"><i class="dropdown icon"></i> <span class="day"> Day 5</span><span class="mainWeather"></span> <i class="weatherIcon"></i></div>
-                        <div><span class="temp">75</span><sup><i class="icofont-fahrenheit"></i> </sup></div>
+                        <div class="dropDay"><i class="dropdown icon"></i><span class="day"> Day 5</span>
+                            <span class="mainWeather"></span> <i class="weatherIcon"></i></div>
+                        <div><span class="tempHigh">75</span><span class="slash">/</span>
+                            <span class="tempLow">75</span><sup><i class="icofont-fahrenheit"></i> </sup></div>
                     </div>
                     <div class="content">
                         <div class="ui label image">Humidity:
@@ -134,6 +144,18 @@
             </div>
             <div class="ui dimmer">
                 <div class="ui loader"> Loading...
+                </div>
+            </div>
+        </div>
+        <div class="ui modal">
+            <h2>Settings</h2>
+            <div class="ui divider"></div>
+            <div class="row">
+                <div class="inline field">
+                    <div class="ui toggle checkbox">
+                        <input type="checkbox" tabindex="0" class="hidden">
+                        <label id="togLabel">Fahrenheit</label>
+                    </div>
                 </div>
             </div>
         </div>

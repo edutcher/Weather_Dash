@@ -5,6 +5,7 @@ var fiveDay;
 var sevenDay;
 var timer = luxon.DateTime.local();
 var haveData = false;
+var unit = "imperial";
 
 function setTimer() {
     var int = setInterval(() => {
@@ -19,15 +20,20 @@ function setTimer() {
 
 function displayWeather(data) {
     changeHero(fiveDay.data.city.name);
-    $('h1').text(`${fiveDay.data.city.name}  ${parseInt(data.data.current.temp)}`)
-    var newSup = $('<sup>');
-    var newIcon = $('<i>')
-    newIcon.addClass('icofont-fahrenheit')
-    newSup.append(newIcon);
-    $('h1').append(newIcon);
+    $('#cityName').text(`${fiveDay.data.city.name}`)
+    $('#cityTemp').text(`${parseInt(data.data.current.temp)}`);
+    if (unit == "imperial") {
+        $('#cityUnit').attr('class', 'icofont-fahrenheit');
+    } else {
+        $('#cityUnit').attr('class', 'icofont-celsius');
+    }
 
-    $('.temp').each(function(ind, el) {
-        $(el).text(`${parseInt(data.data.daily[ind].temp.max)}/${parseInt(data.data.daily[ind].temp.min)}`);
+    $('.tempHigh').each(function(ind, el) {
+        $(el).text(`${parseInt(data.data.daily[ind].temp.max)}`);
+    });
+
+    $('.tempLow').each(function(ind, el) {
+        $(el).text(`${parseInt(data.data.daily[ind].temp.min)}`);
     });
 
     $('.day').each(function(ind, el) {
@@ -154,7 +160,7 @@ function addTag(city) {
 
     if (haveTag) return;
 
-    tags.push(city);
+    if (!tags.includes(city)) tags.push(city);
 
     var newAnch = $('<a>');
     var newDiv = $('<div>');
@@ -189,7 +195,7 @@ function addTag(city) {
 function getWeather(city) {
     $('.segment').dimmer('show');
 
-    q = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&appid=de7bd5e10ba48f1457012747849901b6`
+    q = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=${unit}&appid=de7bd5e10ba48f1457012747849901b6`
 
     axios.get(q)
         .then(res => {
@@ -198,7 +204,7 @@ function getWeather(city) {
 
             fiveDay = res;
 
-            q = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&units=imperial&appid=de7bd5e10ba48f1457012747849901b6`
+            q = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&units=${unit}&appid=de7bd5e10ba48f1457012747849901b6`
 
             axios.get(q)
                 .then(res => {
@@ -252,18 +258,85 @@ function changeHero(city) {
         });
 }
 
+function setUnit(choice) {
+    unit = choice;
+    if (unit == "metric") {
+        $('#togLabel').text('Celsius');
+        $('.icofont-fahrenheit').each(function(ind, el) {
+            $(this).attr('class', 'icofont-celsius');
+        });
+        $('.tempHigh').each(function(ind, el) {
+            var temp = 0;
+            var temper = 0;
+            temp = parseInt($(this).text());
+            temper = (temp - 32) * (5 / 9);
+            temp = Math.round(temper);
+            $(this).text(temp);
+        });
+        $('.tempLow').each(function(ind, el) {
+            var temp = 0;
+            var temper = 0;
+            temp = parseInt($(this).text());
+            temper = (temp - 32) * (5 / 9);
+            temp = Math.round(temper);
+            $(this).text(temp);
+        })
+        $('#cityTemp').each(function(ind, el) {
+            var temp = 0;
+            var temper = 0;
+            temp = parseInt($(this).text());
+            temper = (temp - 32) * (5 / 9);
+            temp = Math.round(temper);
+            $(this).text(temp);
+        })
+    } else {
+        $('#togLabel').text('Fahrenheit');
+        $('.icofont-celsius').each(function(ind, el) {
+            $(this).attr('class', 'icofont-fahrenheit');
+        });
+        $('.tempHigh').each(function(ind, el) {
+            var temp = 0;
+            var temper = 0;
+            temp = parseInt($(this).text());
+            temper = (temp * (9 / 5)) + 32;
+            temp = Math.round(temper);
+            $(this).text(temp);
+        });
+        $('.tempLow').each(function(ind, el) {
+            var temp = 0;
+            var temper = 0;
+            temp = parseInt($(this).text());
+            temper = (temp * (9 / 5)) + 32;
+            temp = Math.round(temper);
+            $(this).text(temp);
+        });
+        $('#cityTemp').each(function(ind, el) {
+            var temp = 0;
+            var temper = 0;
+            temp = parseInt($(this).text());
+            temper = (temp * (9 / 5)) + 32;
+            temp = Math.round(temper);
+            $(this).text(temp);
+        });
+    }
+}
+
 $(document).ready(() => {
 
-    axios.get(q)
-        .then(res => {
-            userCity = res.data.city;
-            getWeather(userCity);
-        })
-        .catch(e => {
-            console.log(e);
-        })
+    // axios.get(q)
+    //     .then(res => {
+    //         userCity = res.data.city;
+    //         getWeather(userCity);
+    //     })
+    //     .catch(e => {
+    //         console.log(e);
+    //     })
 
     $('.ui.accordion').accordion();
+    $('.ui.checkbox').checkbox({
+        onChecked: function() { setUnit("metric") },
+        onUnchecked: function() { setUnit("imperial") }
+    });
 
     $('.delete').click(function(e) {
         e.stopPropagation();
@@ -293,6 +366,10 @@ $(document).ready(() => {
         if ($('#cityInput').val() != '' || $('#cityInput').val() != null) {
             getWeather($('#cityInput').val());
         }
+    })
+
+    $('#settBtn').click(() => {
+        $('.ui.modal').modal('show');
     })
 
     setTimer();
