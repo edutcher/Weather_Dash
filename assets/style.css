@@ -45,6 +45,7 @@ body {
     border-radius: 50%;
     right: 10%;
     top: 5%;
+    z-index: 5;
     animation: shine 5s linear forwards;
 }
 
@@ -66,12 +67,12 @@ body {
 
 #cloud1 {
     z-index: 5;
-    animation: drift 25s linear infinite;
+    animation: driftRight 25s linear infinite;
 }
 
 #cloud2 {
     z-index: 7;
-    animation: drift 35s linear infinite;
+    animation: driftLeft 30s linear infinite;
 }
 
 #cloud1,
@@ -86,14 +87,14 @@ body {
 }
 
 #cloud2 {
-    top: 280px;
-    left: 50px;
+    top: 180px;
+    right: 50px;
     z-index: 200;
 }
 
 .layer1 {
-    width: 250px;
-    height: 100px;
+    width: 200px;
+    height: 80px;
     border-radius: 50px;
     background: #ffffff;
     position: absolute;
@@ -101,37 +102,48 @@ body {
 
 .layer2 {
     position: absolute;
-    width: 90px;
-    height: 90px;
+    width: 72px;
+    height: 72px;
     border-radius: 50%;
     background: #fff;
-    top: -40px;
-    left: 120px;
+    top: -32px;
+    left: 96px;
     z-index: -1;
 }
 
 .layer3 {
     position: absolute;
-    width: 120px;
-    height: 120px;
+    width: 96px;
+    height: 96px;
     border-radius: 50%;
     background: #fff;
-    top: -60px;
-    left: 40px;
+    top: -48px;
+    left: 32px;
     z-index: -2;
 }
 
 
 /* cloud animation keyframes */
 
-@keyframes drift {
+@keyframes driftRight {
     from {
         transform: translateX(-600px);
-        opacity: 0.8;
+        opacity: 0.7;
     }
     to {
         transform: translateX(1800px);
-        opacity: 1;
+        opacity: .9;
+    }
+}
+
+@keyframes driftLeft {
+    from {
+        transform: translateX(200px);
+        opacity: 0.7;
+    }
+    to {
+        transform: translateX(-2100px);
+        opacity: .9;
     }
 }
 
@@ -143,7 +155,6 @@ body {
     background-size: cover;
     background-position: center;
     height: 546px;
-    z-index: -10;
 }
 
 #cityTitle {
