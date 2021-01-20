@@ -1,5 +1,5 @@
 body {
-    background-color: lightblue;
+    background: lightblue;
 }
 
 #searchBar {
@@ -98,6 +98,7 @@ body {
     border-radius: 50px;
     background: #ffffff;
     position: absolute;
+    box-shadow: 4px 4px grey;
 }
 
 .layer2 {
@@ -109,6 +110,7 @@ body {
     top: -32px;
     left: 96px;
     z-index: -1;
+    box-shadow: 3px 3px grey;
 }
 
 .layer3 {
@@ -120,6 +122,77 @@ body {
     top: -48px;
     left: 32px;
     z-index: -2;
+    box-shadow: 3px 3px grey;
+}
+
+#rainCloud1 {
+    position: absolute;
+    top: 13%;
+    right: 22%;
+    z-index: 200;
+}
+
+#rainCloud2 {
+    position: absolute;
+    top: 17%;
+    left: 10%;
+    z-index: 200;
+}
+
+.rainLayer1 {
+    width: 200px;
+    height: 80px;
+    border-radius: 50px;
+    background: darkgray;
+    position: absolute;
+    box-shadow: 4px 4px grey;
+}
+
+.rainLayer2 {
+    position: absolute;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: darkgray;
+    top: -48px;
+    left: 32px;
+    z-index: -1;
+    box-shadow: 3px 3px grey;
+}
+
+.rainLayer3 {
+    position: absolute;
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    background: darkgray;
+    top: -32px;
+    left: 96px;
+    z-index: -1;
+    box-shadow: 3px 3px grey;
+}
+
+.rainDrop {
+    position: absolute;
+    top: 17%;
+    right: 13%;
+    width: 3px;
+    height: 100px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25));
+    z-index: 199;
+    animation: drop 0.4s linear infinite;
+}
+
+@keyframes drop {
+    0% {
+        transform: translateY(0vh);
+    }
+    75% {
+        transform: translateY(47vh);
+    }
+    100% {
+        transform: translateY(58vh);
+    }
 }
 
 
@@ -160,7 +233,7 @@ body {
 #cityTitle {
     color: black;
     text-align: center;
-    text-shadow: 3px 3px lightsteelblue;
+    text-shadow: 3px 3px rgb(55, 74, 180);
     margin-bottom: 50px;
     padding-bottom: 50px;
 }

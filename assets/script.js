@@ -22,7 +22,8 @@ function animateWeather(weather) {
     $('#canvas').empty();
     console.log(weather);
     if (weather == "Clouds" || weather == "Clear") {
-        var newSun = $('<div>')
+        $('body').css('background', 'lightblue');
+        var newSun = $('<div>');
         newSun.attr('id', 'sun');
         $('#canvas').append(newSun);
         var cloud1 = $('<div>');
@@ -42,7 +43,60 @@ function animateWeather(weather) {
             clouds[i].append(newLayer3);
             $('#canvas').append(clouds[i]);
         }
-
+    } else if (weather == "Rain" || weather == "Drizzle" || weather == "Thunderstorm") {
+        $('body').css('background', 'linear-gradient(to bottom, #202020, #111119)');
+        var rainCloud = $('<div>');
+        rainCloud.attr('id', 'rainCloud1');
+        var newLayer1 = $('<div>');
+        var newLayer2 = $('<div>');
+        var newLayer3 = $('<div>');
+        newLayer1.addClass('rainLayer1');
+        newLayer2.addClass('rainLayer2');
+        newLayer3.addClass('rainLayer3');
+        rainCloud.append(newLayer1);
+        rainCloud.append(newLayer2);
+        rainCloud.append(newLayer3);
+        $('#canvas').append(rainCloud);
+        var positions = ['12%', '13%', '14%', '15%', '16%', '17%', '18%', '19%'];
+        var speeds = [0, 1, 2, 3, 4, 5];
+        for (var i = 0; i < 5; i++) {
+            var rand = Math.floor(Math.random() * positions.length);
+            var newDrop = $('<div>');
+            newDrop.addClass('rainDrop');
+            newDrop.css('left', positions[rand]);
+            positions.splice(rand, 1);
+            var rand = Math.floor(Math.random() * speeds.length);
+            speeds.splice(rand, 1);
+            newDrop.css('animation', `drop 0.${2+rand}s linear infinite`);
+            $('#canvas').append(newDrop);
+        };
+        if (weather == "Thunderstorm" || weather == "Rain") {
+            var rainCloud = $('<div>');
+            rainCloud.attr('id', 'rainCloud2');
+            var newLayer1 = $('<div>');
+            var newLayer2 = $('<div>');
+            var newLayer3 = $('<div>');
+            newLayer1.addClass('rainLayer1');
+            newLayer2.addClass('rainLayer2');
+            newLayer3.addClass('rainLayer3');
+            rainCloud.append(newLayer1);
+            rainCloud.append(newLayer2);
+            rainCloud.append(newLayer3);
+            $('#canvas').append(rainCloud);
+            var positions = ['20%', '13%', '14%', '15%', '16%', '17%', '18%', '19%'];
+            var speeds = [0, 1, 2, 3, 4, 5];
+            for (var i = 0; i < 5; i++) {
+                var rand = Math.floor(Math.random() * positions.length);
+                var newDrop = $('<div>');
+                newDrop.addClass('rainDrop');
+                newDrop.css('right', positions[rand]);
+                positions.splice(rand, 1);
+                var rand = Math.floor(Math.random() * speeds.length);
+                speeds.splice(rand, 1);
+                newDrop.css('animation', `drop 0.${2+rand}s linear infinite`);
+                $('#canvas').append(newDrop);
+            };
+        }
     }
 }
 

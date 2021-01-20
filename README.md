@@ -3,6 +3,13 @@ Weather Dashboard
 
 hourly?
 radar + minute?
-large screen cards? that flip?
-overlay w/ control?
 animations?
+
+//  PURE CSS sun/clouds
+// made by https://codepen.io/grohit/
+
+top 20
+left 12-19
+
+top 17
+right 13-20
