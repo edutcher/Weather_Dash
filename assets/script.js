@@ -18,6 +18,33 @@ function setTimer() {
     }, 1000)
 }
 
+function animateWeather(weather) {
+    console.log(weather);
+    if (weather == "Clouds" || weather == "Clear") {
+        var newSun = $('<div>')
+        newSun.attr('id', 'sun');
+        $('#canvas').append(newSun);
+        var cloud1 = $('<div>');
+        var cloud2 = $('<div>');
+        cloud1.attr('id', 'cloud1');
+        cloud2.attr('id', 'cloud2');
+        var clouds = [cloud1, cloud2];
+        for (i = 0; i < 2; i++) {
+            var newLayer1 = $('<div>');
+            var newLayer2 = $('<div>');
+            var newLayer3 = $('<div>');
+            newLayer1.addClass('layer1');
+            newLayer2.addClass('layer2');
+            newLayer3.addClass('layer3');
+            clouds[i].append(newLayer1);
+            clouds[i].append(newLayer2);
+            clouds[i].append(newLayer3);
+            $('#canvas').append(clouds[i]);
+        }
+
+    }
+}
+
 function displayWeather(data) {
     changeHero(loc.data.data[0].name);
     $('#cityName').text(`${loc.data.data[0].name}`)
@@ -131,6 +158,8 @@ function displayWeather(data) {
     $('.wind').each(function(ind, el) {
         $(el).text(` ${data.data.daily[ind].wind_speed} MPH`);
     });
+
+    animateWeather(data.data.current.weather[0].main.trim())
 
     setTimeout(() => {
         $('.segment').dimmer('hide');
