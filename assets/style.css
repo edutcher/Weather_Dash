@@ -213,3 +213,23 @@ body {
 h2 {
     text-align: center;
 }
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    left: 0%;
+    height: 50px;
+    background-color: green;
+    z-index: 20;
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.hill {
+    border-radius: 50%;
+    height: 70px;
+    width: 250px;
+    background-color: green;
+    transform: translateY(-27px);
+}

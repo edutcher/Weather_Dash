@@ -19,6 +19,7 @@ function setTimer() {
 }
 
 function animateWeather(weather) {
+    $('#canvas').empty();
     console.log(weather);
     if (weather == "Clouds" || weather == "Clear") {
         var newSun = $('<div>')
@@ -213,9 +214,11 @@ function addTag(city) {
         $($(this).parent().parent()).remove()
     })
 
+    $('.tag').unbind('click')
+
     $('.tag').click(function() {
         $('#cityInput').val($(this).text().trim());
-        getWeather($('#cityInput').val());
+        getWeather($(this).text().trim());
     })
 
     localStorage.setItem('tags', JSON.stringify(tags));
@@ -228,7 +231,6 @@ function getWeather(city) {
 
     axios.get(q)
         .then(res => {
-            console.log(res);
             var lat = res.data.data[0].latitude;
             var lon = res.data.data[0].longitude;
 
@@ -382,7 +384,7 @@ $(document).ready(() => {
 
     $('.tag').click(function() {
         $('#cityInput').val($(this).text().trim());
-        getWeather($('#cityInput').val());
+        getWeather($(this).text().trim());
     })
 
     $('#searchBtn').click(function() {
