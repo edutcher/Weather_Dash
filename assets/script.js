@@ -110,11 +110,11 @@ function displayWeather(data) {
         $('#cityUnit').attr('class', 'icofont-celsius');
     }
 
-    $('.tempHigh').each(function(ind, el) {
+    $('.high').each(function(ind, el) {
         $(el).text(`${parseInt(data.data.daily[ind].temp.max)}`);
     });
 
-    $('.tempLow').each(function(ind, el) {
+    $('.low').each(function(ind, el) {
         $(el).text(`${parseInt(data.data.daily[ind].temp.min)}`);
     });
 
@@ -268,13 +268,6 @@ function addTag(city) {
         $($(this).parent().parent()).remove()
     })
 
-    $('.tag').unbind('click')
-
-    $('.tag').click(function() {
-        $('#cityInput').val($(this).text().trim());
-        getWeather($(this).text().trim());
-    })
-
     localStorage.setItem('tags', JSON.stringify(tags));
 }
 
@@ -351,56 +344,20 @@ function setUnit(choice) {
         $('.icofont-fahrenheit').each(function(ind, el) {
             $(this).attr('class', 'icofont-celsius');
         });
-        $('.tempHigh').each(function(ind, el) {
-            var temp = 0;
-            var temper = 0;
-            temp = parseInt($(this).text());
-            temper = (temp - 32) * (5 / 9);
+        $('.temp').each(function(ind, el) {
+            var temp = parseInt($(this).text());
+            var temper = (temp - 32) * (5 / 9);
             temp = Math.round(temper);
             $(this).text(temp);
         });
-        $('.tempLow').each(function(ind, el) {
-            var temp = 0;
-            var temper = 0;
-            temp = parseInt($(this).text());
-            temper = (temp - 32) * (5 / 9);
-            temp = Math.round(temper);
-            $(this).text(temp);
-        })
-        $('#cityTemp').each(function(ind, el) {
-            var temp = 0;
-            var temper = 0;
-            temp = parseInt($(this).text());
-            temper = (temp - 32) * (5 / 9);
-            temp = Math.round(temper);
-            $(this).text(temp);
-        })
     } else {
         $('#togLabel').text('Fahrenheit');
         $('.icofont-celsius').each(function(ind, el) {
             $(this).attr('class', 'icofont-fahrenheit');
         });
         $('.tempHigh').each(function(ind, el) {
-            var temp = 0;
-            var temper = 0;
-            temp = parseInt($(this).text());
-            temper = (temp * (9 / 5)) + 32;
-            temp = Math.round(temper);
-            $(this).text(temp);
-        });
-        $('.tempLow').each(function(ind, el) {
-            var temp = 0;
-            var temper = 0;
-            temp = parseInt($(this).text());
-            temper = (temp * (9 / 5)) + 32;
-            temp = Math.round(temper);
-            $(this).text(temp);
-        });
-        $('#cityTemp').each(function(ind, el) {
-            var temp = 0;
-            var temper = 0;
-            temp = parseInt($(this).text());
-            temper = (temp * (9 / 5)) + 32;
+            var temp = parseInt($(this).text());
+            var temper = (temp * (9 / 5)) + 32;
             temp = Math.round(temper);
             $(this).text(temp);
         });
@@ -436,7 +393,7 @@ $(document).ready(() => {
         $($(this).parent().parent()).remove()
     })
 
-    $('.tag').click(function() {
+    $(document).on('click', '.tag', function() {
         $('#cityInput').val($(this).text().trim());
         getWeather($(this).text().trim());
     })

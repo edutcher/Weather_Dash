@@ -8,11 +8,7 @@ body {
     justify-content: space-between;
 }
 
-#topLogo {
-    margin: 10px;
-    font-size: 2rem;
-}
-
+#topLogo,
 #settBtn {
     margin: 10px;
     font-size: 2rem;
@@ -244,10 +240,7 @@ body {
 
 #cityTemp {
     margin-left: 25px;
-}
-
-#cityTitle h3 {
-    font-size: 2.5rem;
+    font-size: 5rem;
 }
 
 .dropDay {
@@ -263,22 +256,13 @@ body {
     margin-left: 15px;
 }
 
-.tempHigh {
+.temp,
+.slash,
+h3 {
     font-size: 2.5rem;
 }
 
-.tempLow {
-    font-size: 2.5rem;
-}
-
-.slash {
-    font-size: 2.5rem;
-}
-
-.icofont-fahrenheit {
-    font-size: 2rem;
-}
-
+.icofont-fahrenheit,
 .icofont-celsius {
     font-size: 2rem;
 }
