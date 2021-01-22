@@ -237,7 +237,7 @@ function addTag(city) {
     var haveTag = false;
 
     $('.tag').each(function(ind, el) {
-        if ($(this).text().trim() == city.trim()) {
+        if ($(this).text().trim().toLowerCase() == city.trim().toLowerCase()) {
             haveTag = true;
         };
     })
@@ -256,18 +256,6 @@ function addTag(city) {
     newAnch.append(newDiv);
     $('#tagRow').append(newAnch);
 
-    $('.delete').click(function(e) {
-        e.stopPropagation();
-        var j = tags.length;
-        for (var i = 0; i < j; i++) {
-            if ($(this).parent().text() == tags[i]) {
-                tags.splice(i, 1);
-            }
-        }
-        localStorage.setItem('tags', JSON.stringify(tags));
-        $($(this).parent().parent()).remove()
-    })
-
     localStorage.setItem('tags', JSON.stringify(tags));
 }
 
@@ -283,9 +271,9 @@ function getWeather(city) {
 
             loc = res;
 
-            q = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&units=${unit}&appid=de7bd5e10ba48f1457012747849901b6`
+            var qu = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&units=${unit}&appid=de7bd5e10ba48f1457012747849901b6`
 
-            axios.get(q)
+            axios.get(qu)
                 .then(res => {
                     sevenDay = res;
                     haveData = true;
@@ -355,7 +343,7 @@ function setUnit(choice) {
         $('.icofont-celsius').each(function(ind, el) {
             $(this).attr('class', 'icofont-fahrenheit');
         });
-        $('.tempHigh').each(function(ind, el) {
+        $('.temp').each(function(ind, el) {
             var temp = parseInt($(this).text());
             var temper = (temp * (9 / 5)) + 32;
             temp = Math.round(temper);
@@ -381,7 +369,7 @@ $(document).ready(() => {
         onUnchecked: function() { setUnit("imperial") }
     });
 
-    $('.delete').click(function(e) {
+    $(document).on('click', '.delete', function(e) {
         e.stopPropagation();
         var j = tags.length;
         for (var i = 0; i < j; i++) {

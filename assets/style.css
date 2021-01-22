@@ -216,6 +216,46 @@ body {
     }
 }
 
+#snowCloud1 {
+    position: absolute;
+    top: 16%;
+    right: 28%;
+    z-index: 200;
+}
+
+.snow {
+    position: absolute;
+    background-color: white;
+    top: 19%;
+    right: 24%;
+    height: 10px;
+    width: 10px;
+    filter: blur(3px);
+    border-radius: 50%;
+    box-shadow: 1px 1px lightgray;
+    color: white;
+    z-index: 199;
+    animation: snowFall 8s linear infinite;
+}
+
+@keyframes snowFall {
+    0% {
+        transform: translateY(0);
+    }
+    25% {
+        transform: translateY(15vh) translateX(-3vh);
+    }
+    50% {
+        transform: translateY(35vh) translateX(3vh);
+    }
+    75% {
+        transform: translateY(50vh) translateX(-3vh);
+    }
+    100% {
+        transform: translateY(65vh) translateX(3vh);
+    }
+}
+
 #cityHero {
     background-image: url("https://d13k13wj6adfdf.cloudfront.net/urban_areas/albuquerque_web-3079b54e59.jpg");
     width: 100%;
