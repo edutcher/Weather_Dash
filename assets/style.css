@@ -296,6 +296,10 @@ body {
     margin-left: 15px;
 }
 
+.desc {
+    text-transform: capitalize;
+}
+
 .temp,
 .slash,
 h3 {

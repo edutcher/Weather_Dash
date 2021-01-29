@@ -176,6 +176,11 @@ function displayWeather(data) {
         }
     });
 
+    $('.desc').each(function(ind, el) {
+        $(el).text(`${data.data.daily[ind].weather[0].description.trim()}`);
+    });
+
+
     $('.humid').each(function(ind, el) {
         $(el).text(` ${data.data.daily[ind].humidity} %`);
     });
@@ -262,7 +267,7 @@ function addTag(city) {
 function getWeather(city) {
     $('.segment').dimmer('show');
 
-    q = `http://api.positionstack.com/v1/forward?access_key=8de1f8f20b5f359e8d3495d7877af09b&query=${city}`
+    q = `https://api.positionstack.com/v1/forward?access_key=8de1f8f20b5f359e8d3495d7877af09b&query=${city}`
 
     axios.get(q)
         .then(res => {
