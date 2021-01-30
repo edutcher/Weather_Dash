@@ -1,3 +1,4 @@
+// Global Variables
 var q = "https://json.geoiplookup.io/";
 var userCity = '';
 var tags = [];
@@ -7,6 +8,7 @@ var timer = luxon.DateTime.local();
 var haveData = false;
 var unit = "imperial";
 
+// Start the timer and keep track of timezone changes
 function setTimer() {
     let int = setInterval(() => {
         if (haveData) {
@@ -18,6 +20,7 @@ function setTimer() {
     }, 1000)
 }
 
+//Animate weather on the canvas dependant on current weather
 function animateWeather(weather) {
 
     function makeCloud(type, num) {
@@ -50,6 +53,7 @@ function animateWeather(weather) {
             return newDiv;
         }
     }
+    $('.hill').css('background-color', 'green');
     $('#canvas').empty();
     console.log(weather);
     if (weather == "Clouds" || weather == "Clear") {
@@ -98,6 +102,7 @@ function animateWeather(weather) {
             };
         }
     } else if (weather == "Snow") {
+        $('body').css('background', 'linear-gradient(315deg, #b8c6db 0%, #f5f7fa 74%)');
         let snowCloud = makeCloud('Snow', '1');
         $('#canvas').append(snowCloud);
         let positions = ['20%', '21%', '22%', '23%', '16%', '17%', '18%', '19%'];
@@ -116,6 +121,7 @@ function animateWeather(weather) {
     }
 }
 
+// Populate weather data on the page
 function displayWeather(data) {
     changeHero(loc.data.name);
     $('#cityName').text(`${loc.data.name}`)
@@ -243,6 +249,7 @@ function displayWeather(data) {
 
 }
 
+// Grab tags from local storage
 function getTags() {
     if (localStorage.getItem('tags') === null) return;
 
@@ -253,6 +260,7 @@ function getTags() {
     });
 }
 
+// Add tag to page and local storage
 function addTag(city) {
 
     let haveTag = false;
@@ -280,6 +288,7 @@ function addTag(city) {
     localStorage.setItem('tags', JSON.stringify(tags));
 }
 
+// Openweather API call
 function getWeather(city) {
     $('.segment').dimmer('show');
 
@@ -311,6 +320,7 @@ function getWeather(city) {
         })
 }
 
+// change background to city image
 function changeHero(city) {
 
     let newstr = "";
@@ -347,6 +357,7 @@ function changeHero(city) {
         });
 }
 
+// change from Fahrenheit/Celsius
 function setUnit(choice) {
     unit = choice;
     if (unit == "metric") {
@@ -376,14 +387,14 @@ function setUnit(choice) {
 
 $(document).ready(() => {
 
-    axios.get(q)
-        .then(res => {
-            userCity = res.data.city;
-            getWeather(userCity);
-        })
-        .catch(e => {
-            console.log(e);
-        })
+    // axios.get(q)
+    //     .then(res => {
+    //         userCity = res.data.city;
+    //         getWeather(userCity);
+    //     })
+    //     .catch(e => {
+    //         console.log(e);
+    //     })
 
     $('.ui.accordion').accordion();
     $('.ui.checkbox').checkbox({

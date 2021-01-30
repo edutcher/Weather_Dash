@@ -315,6 +315,10 @@ h2 {
     text-align: center;
 }
 
+#unitChoice {
+    padding: 50px;
+}
+
 .footer {
     position: absolute;
     bottom: 0;
@@ -333,4 +337,40 @@ h2 {
     width: 250px;
     background-color: green;
     transform: translateY(-27px);
+}
+
+@media (max-width: 890px) {
+    #canvas {
+        display: none;
+    }
+    #topLogo,
+    #settBtn {
+        margin: 10px;
+        font-size: 1rem;
+    }
+    #cityTitle h1 {
+        font-size: 3rem;
+    }
+    #cityTemp {
+        margin-left: 25px;
+        font-size: 3rem;
+    }
+    .dropDay {
+        font-size: 1rem;
+    }
+    .temp,
+    .slash,
+    h3 {
+        font-size: 1.5rem;
+    }
+    .icofont-fahrenheit,
+    .icofont-celsius {
+        font-size: 1rem;
+    }
+    .ui.label {
+        font-size: 10px;
+    }
+    .desc {
+        display: none;
+    }
 }
