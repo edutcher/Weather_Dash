@@ -8,7 +8,7 @@ var haveData = false;
 var unit = "imperial";
 
 function setTimer() {
-    var int = setInterval(() => {
+    let int = setInterval(() => {
         if (haveData) {
             timer = luxon.DateTime.local().setZone(sevenDay.data.timezone)
         } else {
@@ -19,90 +19,106 @@ function setTimer() {
 }
 
 function animateWeather(weather) {
+
+    function makeCloud(type, num) {
+        if (type === 'Norm') {
+            let newDiv = $('<div>');
+            newDiv.attr('id', 'cloud' + num);
+            for (i = 1; i < 4; i++) {
+                let newLayer = $('<div>');
+                newLayer.addClass('layer' + i);
+                newDiv.append(newLayer);
+            }
+            return newDiv;
+        } else if (type === 'Rain') {
+            let newDiv = $('<div>');
+            newDiv.attr('id', 'rainCloud' + num);
+            for (i = 1; i < 4; i++) {
+                let newLayer = $('<div>');
+                newLayer.addClass('rainLayer' + i);
+                newDiv.append(newLayer);
+            }
+            return newDiv;
+        } else if (type === 'Snow') {
+            let newDiv = $('<div>');
+            newDiv.attr('id', 'snowCloud' + num);
+            for (i = 1; i < 4; i++) {
+                let newLayer = $('<div>');
+                newLayer.addClass('layer' + i);
+                newDiv.append(newLayer);
+            }
+            return newDiv;
+        }
+    }
     $('#canvas').empty();
     console.log(weather);
     if (weather == "Clouds" || weather == "Clear") {
         $('body').css('background', 'lightblue');
-        var newSun = $('<div>');
+        let newSun = $('<div>');
         newSun.attr('id', 'sun');
         $('#canvas').append(newSun);
-        var cloud1 = $('<div>');
-        var cloud2 = $('<div>');
-        cloud1.attr('id', 'cloud1');
-        cloud2.attr('id', 'cloud2');
-        var clouds = [cloud1, cloud2];
-        for (i = 0; i < 2; i++) {
-            var newLayer1 = $('<div>');
-            var newLayer2 = $('<div>');
-            var newLayer3 = $('<div>');
-            newLayer1.addClass('layer1');
-            newLayer2.addClass('layer2');
-            newLayer3.addClass('layer3');
-            clouds[i].append(newLayer1);
-            clouds[i].append(newLayer2);
-            clouds[i].append(newLayer3);
-            $('#canvas').append(clouds[i]);
+        let newCloud = makeCloud('Norm', '1');
+        $('#canvas').append(newCloud);
+        if (weather == 'Clouds') {
+            let newCloud = makeCloud('Norm', '2');
+            $('#canvas').append(newCloud);
         }
     } else if (weather == "Rain" || weather == "Drizzle" || weather == "Thunderstorm") {
         $('body').css('background', 'linear-gradient(to bottom, #202020, #111119)');
-        var rainCloud = $('<div>');
-        rainCloud.attr('id', 'rainCloud1');
-        var newLayer1 = $('<div>');
-        var newLayer2 = $('<div>');
-        var newLayer3 = $('<div>');
-        newLayer1.addClass('rainLayer1');
-        newLayer2.addClass('rainLayer2');
-        newLayer3.addClass('rainLayer3');
-        rainCloud.append(newLayer1);
-        rainCloud.append(newLayer2);
-        rainCloud.append(newLayer3);
+        let rainCloud = makeCloud('Rain', '1');
         $('#canvas').append(rainCloud);
-        var positions = ['12%', '13%', '14%', '15%', '16%', '17%', '18%', '19%'];
-        var speeds = [0, 1, 2, 3, 4, 5];
+        let positions = ['12%', '13%', '14%', '15%', '16%', '17%', '18%', '19%'];
+        let speeds = [0, 1, 2, 3, 4, 5];
         for (var i = 0; i < 5; i++) {
-            var rand = Math.floor(Math.random() * positions.length);
-            var newDrop = $('<div>');
+            let randNum = Math.floor(Math.random() * positions.length);
+            let newDrop = $('<div>');
             newDrop.addClass('rainDrop');
-            newDrop.css('left', positions[rand]);
-            positions.splice(rand, 1);
-            var rand = Math.floor(Math.random() * speeds.length);
+            newDrop.css('left', positions[randNum]);
+            positions.splice(randNum, 1);
+            let rand = Math.floor(Math.random() * speeds.length);
             speeds.splice(rand, 1);
             newDrop.css('animation', `drop 0.${2+rand}s linear infinite`);
             $('#canvas').append(newDrop);
         };
         if (weather == "Thunderstorm" || weather == "Rain") {
-            var rainCloud = $('<div>');
-            rainCloud.attr('id', 'rainCloud2');
-            var newLayer1 = $('<div>');
-            var newLayer2 = $('<div>');
-            var newLayer3 = $('<div>');
-            newLayer1.addClass('rainLayer1');
-            newLayer2.addClass('rainLayer2');
-            newLayer3.addClass('rainLayer3');
-            rainCloud.append(newLayer1);
-            rainCloud.append(newLayer2);
-            rainCloud.append(newLayer3);
+            let rainCloud = makeCloud('Rain', '2');
             $('#canvas').append(rainCloud);
-            var positions = ['20%', '13%', '14%', '15%', '16%', '17%', '18%', '19%'];
-            var speeds = [0, 1, 2, 3, 4, 5];
+            let positions = ['20%', '13%', '14%', '15%', '16%', '17%', '18%', '19%'];
+            let speeds = [0, 1, 2, 3, 4, 5];
             for (var i = 0; i < 5; i++) {
-                var rand = Math.floor(Math.random() * positions.length);
-                var newDrop = $('<div>');
+                let randNum = Math.floor(Math.random() * positions.length);
+                let newDrop = $('<div>');
                 newDrop.addClass('rainDrop');
-                newDrop.css('right', positions[rand]);
-                positions.splice(rand, 1);
-                var rand = Math.floor(Math.random() * speeds.length);
+                newDrop.css('right', positions[randNum]);
+                positions.splice(randNum, 1);
+                let rand = Math.floor(Math.random() * speeds.length);
+                newDrop.css('animation', `drop 0.${2+speeds[rand]}s linear infinite`);
                 speeds.splice(rand, 1);
-                newDrop.css('animation', `drop 0.${2+rand}s linear infinite`);
                 $('#canvas').append(newDrop);
             };
         }
+    } else if (weather == "Snow") {
+        let snowCloud = makeCloud('Snow', '1');
+        $('#canvas').append(snowCloud);
+        let positions = ['20%', '21%', '22%', '23%', '16%', '17%', '18%', '19%'];
+        let speeds = [0, 1, 2, 3, 4];
+        for (var i = 0; i < 4; i++) {
+            let randNum = Math.floor(Math.random() * positions.length);
+            let newSnow = $('<div>');
+            newSnow.addClass('snow');
+            newSnow.css('right', positions[randNum]);
+            positions.splice(randNum, 1);
+            let rand = Math.floor(Math.random() * speeds.length);
+            newSnow.css('animation', `snowFall ${5+speeds[rand]}s linear infinite`);
+            speeds.splice(rand, 1);
+            $('#canvas').append(newSnow);
+        };
     }
 }
 
 function displayWeather(data) {
-    changeHero(loc.data.data[0].name);
-    $('#cityName').text(`${loc.data.data[0].name}`)
+    changeHero(loc.data.name);
+    $('#cityName').text(`${loc.data.name}`)
     $('#cityTemp').text(`${parseInt(data.data.current.temp)}`);
     if (unit == "imperial") {
         $('#cityUnit').attr('class', 'icofont-fahrenheit');
@@ -119,8 +135,8 @@ function displayWeather(data) {
     });
 
     $('.day').each(function(ind, el) {
-        var newDate = new Date(data.data.daily[ind].dt * 1000);
-        var day = newDate.toDateString().slice(0, 3);
+        let newDate = new Date(data.data.daily[ind].dt * 1000);
+        let day = newDate.toDateString().slice(0, 3);
         $(el).text(`${day} ${newDate.getDate()}`);
     });
 
@@ -188,7 +204,7 @@ function displayWeather(data) {
 
     $('.uvi').each(function(ind, el) {
         $(el).text(` ${data.data.daily[ind].uvi}`);
-        var uv = parseInt(data.data.daily[ind].uvi);
+        let uv = parseInt(data.data.daily[ind].uvi);
         switch (uv) {
             case 11:
                 $(this).parent().attr('class', 'ui label image violet');
@@ -239,7 +255,7 @@ function getTags() {
 
 function addTag(city) {
 
-    var haveTag = false;
+    let haveTag = false;
 
     $('.tag').each(function(ind, el) {
         if ($(this).text().trim().toLowerCase() == city.trim().toLowerCase()) {
@@ -251,9 +267,9 @@ function addTag(city) {
 
     if (!tags.includes(city)) tags.push(city);
 
-    var newAnch = $('<a>');
-    var newDiv = $('<div>');
-    var newIcon = $('<i>');
+    let newAnch = $('<a>');
+    let newDiv = $('<div>');
+    let newIcon = $('<i>');
     newIcon.addClass('delete icon');
     newDiv.addClass('ui tag image label');
     newDiv.text(city.trim());
@@ -267,12 +283,13 @@ function addTag(city) {
 function getWeather(city) {
     $('.segment').dimmer('show');
 
-    q = `https://api.positionstack.com/v1/forward?access_key=8de1f8f20b5f359e8d3495d7877af09b&query=${city}`
+    q = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=de7bd5e10ba48f1457012747849901b6`
 
     axios.get(q)
         .then(res => {
-            var lat = res.data.data[0].latitude;
-            var lon = res.data.data[0].longitude;
+            console.log(res);
+            let lat = res.data.coord.lat;
+            let lon = res.data.coord.lon;
 
             loc = res;
 
@@ -283,7 +300,7 @@ function getWeather(city) {
                     sevenDay = res;
                     haveData = true;
                     displayWeather(res);
-                    addTag(loc.data.data[0].name);
+                    addTag(loc.data.name);
                 })
                 .catch(e => {
                     console.log(e);
@@ -296,7 +313,7 @@ function getWeather(city) {
 
 function changeHero(city) {
 
-    var newstr = "";
+    let newstr = "";
     for (var i = 0; i < city.length; i++) {
         if (city[i] === ",") {
             break
@@ -338,8 +355,8 @@ function setUnit(choice) {
             $(this).attr('class', 'icofont-celsius');
         });
         $('.temp').each(function(ind, el) {
-            var temp = parseInt($(this).text());
-            var temper = (temp - 32) * (5 / 9);
+            let temp = parseInt($(this).text());
+            let temper = (temp - 32) * (5 / 9);
             temp = Math.round(temper);
             $(this).text(temp);
         });
@@ -349,8 +366,8 @@ function setUnit(choice) {
             $(this).attr('class', 'icofont-fahrenheit');
         });
         $('.temp').each(function(ind, el) {
-            var temp = parseInt($(this).text());
-            var temper = (temp * (9 / 5)) + 32;
+            let temp = parseInt($(this).text());
+            let temper = (temp * (9 / 5)) + 32;
             temp = Math.round(temper);
             $(this).text(temp);
         });
@@ -359,14 +376,14 @@ function setUnit(choice) {
 
 $(document).ready(() => {
 
-    // axios.get(q)
-    //     .then(res => {
-    //         userCity = res.data.city;
-    //         getWeather(userCity);
-    //     })
-    //     .catch(e => {
-    //         console.log(e);
-    //     })
+    axios.get(q)
+        .then(res => {
+            userCity = res.data.city;
+            getWeather(userCity);
+        })
+        .catch(e => {
+            console.log(e);
+        })
 
     $('.ui.accordion').accordion();
     $('.ui.checkbox').checkbox({
@@ -376,8 +393,8 @@ $(document).ready(() => {
 
     $(document).on('click', '.delete', function(e) {
         e.stopPropagation();
-        var j = tags.length;
-        for (var i = 0; i < j; i++) {
+        let j = tags.length;
+        for (let i = 0; i < j; i++) {
             if ($(this).parent().text() == tags[i]) {
                 tags.splice(i, 1);
             }
@@ -392,14 +409,14 @@ $(document).ready(() => {
     })
 
     $('#searchBtn').click(function() {
-        if ($('#cityInput').val() != '' || $('#cityInput').val() != null) {
+        if ($('#cityInput').val() != '') {
             getWeather($('#cityInput').val());
         }
     })
 
     $('form').submit((e) => {
         e.preventDefault();
-        if ($('#cityInput').val() != '' || $('#cityInput').val() != null) {
+        if ($('#cityInput').val() != '') {
             getWeather($('#cityInput').val());
         }
     })
