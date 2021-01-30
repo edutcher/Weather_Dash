@@ -387,14 +387,14 @@ function setUnit(choice) {
 
 $(document).ready(() => {
 
-    // axios.get(q)
-    //     .then(res => {
-    //         userCity = res.data.city;
-    //         getWeather(userCity);
-    //     })
-    //     .catch(e => {
-    //         console.log(e);
-    //     })
+    axios.get(q)
+        .then(res => {
+            userCity = res.data.city;
+            getWeather(userCity);
+        })
+        .catch(e => {
+            console.log(e);
+        })
 
     $('.ui.accordion').accordion();
     $('.ui.checkbox').checkbox({
